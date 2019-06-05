@@ -114,4 +114,27 @@ describe 'jenkins class' do
       it { is_expected.to contain '  <slaveAgentPort>7777</slaveAgentPort>' }
     end
   end # slaveagentport
+
+  context 'custom localdir' do
+    pp = <<-EOS
+      class {'jenkins':
+        localstatedir => '/data/jenkins',
+      }
+    EOS
+
+    apply2(pp)
+
+    describe service('jenkins') do
+      it { is_expected.to be_running }
+    end
+    describe file('/data/jenkins') do
+      it { is_expected.to be_readable.by('owner') }
+      it { is_expected.to be_writeable.by('owner') }
+      it { is_expected.to be_readable.by('group') }
+      it { is_expected.to be_readable.by('others') }
+    end
+    describe file('/data/jenkins/config.xml') do
+      it { is_expected.to be_file }
+    end
+  end # custom localdir
 end
