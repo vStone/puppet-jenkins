@@ -238,8 +238,8 @@ describe 'jenkins_credentials' do
           pp = base_manifest + <<-EOS
             jenkins::plugin { [
               'google-oauth-plugin',
-              'credentials',
-              'structs',
+              # 'credentials', ## Credentials and structs is already included in the base manifest.
+              # 'structs',
               'oauth-credentials',
             ]: }
 
@@ -277,8 +277,8 @@ describe 'jenkins_credentials' do
           pp = base_manifest + <<-EOS
             jenkins::plugin { [
               'google-oauth-plugin',
-              'credentials',
-              'structs',
+              # 'credentials',
+              # 'structs',
               'oauth-credentials',
             ]: }
 
